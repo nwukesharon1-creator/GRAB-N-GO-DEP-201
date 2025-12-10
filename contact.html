@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Grab'n'Go</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<section class="menu-header">
+   <style>
+    /* small helpers to ensure nav integrates with existing style.css */
+    body { font-family: 'Poppins', sans-serif; }
+    /* Basic layout for nav (menu4 style) if your style.css doesn't provide it */
+    .menu-header nav {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 20px;
+      background:#fc3a3a;
+      box-shadow:0 2px 6px rgba(0,0,0,.04);
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+    .menu-header .logo-img { height:48px; object-fit:cover; border-radius:6px; }
+    .nav-links { position: fixed; right: -260px; top:0; height:100%; width:220px; background:#1a1a1a; box-shadow: -2px 0 8px rgba(0,0,0,.08); transition: right .25s ease; padding:20px; z-index:1000; }
+    .nav-links ul { list-style:none; padding:0; margin-top:16px; }
+    .nav-links li { margin:12px 0; }
+    .nav-links a { text-decoration:none; color:#fff; font-weight:600; }
+    .fa-bars { cursor:pointer; font-size:22px; color:#333; }
+    .fa-xmark { cursor:pointer; font-size:22px; color:#fff; }
+    /* ensure cart-count bubble */
+    #cart-count { background:#e53e3e; color:white; padding:2px 8px; border-radius:12px; font-size:12px; margin-left:6px; }
+    /* ensure menu title styling aligns */
+    .menu-title { text-align:center; margin:18px 0; font-size:28px; }
+    /* small responsive adjustments */
+    @media(min-width:800px) {
+      .nav-links { position:static; width:auto; height:auto; box-shadow:none; padding:0; display:flex; align-items:center; gap:20px; background:transparent; right:auto !important; }
+      .nav-links ul { display:flex; gap:18px; margin:0; padding:0; }
+      .nav-links a { color:#333; }
+      .nav-links li a i { color:#333; }
+      .fa-bars { display:none; }
+      .fa-xmark { display:none; }
+    }
+  </style>
+    <nav>
+        <a href="index.html">
+
+        <div class="nav-links" id="navLinks">
+            <i class="fa-solid fa-xmark" onclick="hidemenu()"></i>
+
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="https://accounts.google.com/signin">SIGN-IN</a></li>
+                <li><a href="menu.html">MENU</a></li>
+
+                <li>
+                    <a href="cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        CART <span id="cart-count">0</span>
+                    </a>
+                </li>
+
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </div>
+
+        <i class="fa-solid fa-bars" onclick="showmenu()"></i>
+    </nav>
+</section>
+
+<section class="contact">
+  <h1>Contact Us</h1>
+  <div class="contact-form">
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Subject" required>
+      <textarea rows="6" placeholder="Your Message" required></textarea>
+      <button type="submit" class="hero-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<section class="footer">
+    <h4>About Us</h4>
+    <p>Grab'n'Go connects students to campus food vendors for fast and convenient meals.</p>
+
+    <div class="icons">
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-linkedin-in"></i>
+    </div>
+
+    <p>Made with <i class="fa-solid fa-heart"></i> by Grab'n'Go</p>
+</section>
+
+<script>
+let navLinks = document.getElementById("navLinks");
+function showmenu(){ navLinks.style.right = "0"; }
+function hidemenu(){ navLinks.style.right = "-200px"; }
+
+/* LOAD CART COUNT */
+function updateCartUI() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").innerText =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+updateCartUI();
+</script>
+
+</body>
+</html>
