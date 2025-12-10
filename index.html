@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grab'n'Go</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body>
+    <section class="header">
+    <nav>
+      <a href="index.html">
+       <img src="images.jpeg/25b2f412-a699-4108-859b-ddbbc988a307.jpg" alt="logo" class="logo-img">
+
+    </a>
+    <div class="nav-links" id="navLinks">
+      <i class="fa-solid fa-xmark" onclick="hidemenu()"></i>
+
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="https://accounts.google.com/signin">SIGN-IN</a></li>
+        <li><a href="menu.html">MENU</a></li>
+        <li>
+  <a href="cart.html">
+    <i class="fa-solid fa-cart-shopping"></i>CART<span id="cart-count" class="cart-count">0</span>
+  </a>
+</li>
+
+         <li><a href="custom.html">CUSTOMIZE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </div>
+
+      <i class="fa-solid fa-bars" onclick="showmenu()"></i>
+    </nav>
+
+    <div class="text-box">
+        <h1>Welcome to Grab'N'Go</h1>
+        <p>Where your meals are delivered in minute .</p>
+        <a href="menu.html" class="hero-btn">Order Now</a>
+    </div>
+
+  </section>
+
+  <!------ About ----------->
+  <section class="about">
+    <h1>Our Specialties</h1>
+    <p> We were created to make food ordering easier, faster, and more personal for students.</p>
+
+    <div class="row">
+      <div class="about-col">
+        <h2>Food Vendors,Now One Tap Away</h2>
+        <p>Our app connects students with trusted local food vendors, allowing you to browse menus, place orders, and enjoy quick delivery without stress. We focus on convenience, quality, and making everyday campus life smoother.</p>
+        </div>
+
+     <div class="about-col">
+        <h2>Smart Eating Made Simple</h2>
+        <p>We also understand that everyone has different health and nutrition goals. That’s why we offer simple, balanced diet subscription plans — whether you want to build healthy habits, manage your weight safely, or just enjoy better meal choices. No extreme diets, just guidance that supports your wellbeing.</p>
+        </div>
+
+     <div class="about-col">
+            <h2>Your Food, Your Style</h2>
+            <p>For even more personalization, our Food Customization feature lets you tailor your meals exactly the way you like them.</p>
+        </div>
+    </div>
+  </section>
+       
+  <section class="footer">
+    <h4>About Us</h4>
+    <p>Grab'n'Go is a food delivery service that connects students with local food vendors for quick and convenient meal options. Our mission is to make food ordering easier, faster, and more personal for students.</p>
+    <div class="icons">
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-linkedin-in"></i>
+    </div>
+    <p>Made with <i class="fa-solid fa-heart"></i> by Grab'n'Go</p>
+
+  </section>       
+    
+
+
+  
+
+<script>
+    var navLinks = document.getElementById("navLinks");
+    function showmenu(){
+       if(navLinks) navLinks.style.right = "0";
+    }
+    function hidemenu(){
+        if(navLinks)navLinks.style.right = "-200px";
+    }
+</script>
+
+<script>
+  function loadMenu() {
+    const menuList = document.getElementById('menuList');
+    menu.forEach((item, index) => {
+      menuList.innerHTML += `
+        <div class='meal-card'>
+          <img src="${item.img}" />
+          <div class='meal-info'>
+            <h3>${item.name}</h3>
+            <p>₦${item.price}</p>
+            <button onclick='addToCart(${index})'>Add to Cart</button>
+          </div>
+        </div>`;
+    });
+  }
+
+  function addToCart(i) {
+    const item = menu[i];
+    const existing = cart.find(x => x.name === item.name);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ ...item, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    document.getElementById('cartCount').innerText =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
+  function scrollToMenu() {
+    document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  loadMenu();
+  updateCartUI();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grab'N'Go Cart</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<section class="cart-section">
+    <h1>Your Cart</h1>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+        <h3>Total: <span id="total-price">0</span></h3>
+        <button class="Checkout" onclick="placeOrder()">Checkout</button>
+    </div>
+    
+
+    <button class="back-btn">
+        <a href="menu.html">Back to Menu</a>
+    </button>
+</section>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderCart() {
+    const items = document.getElementById("cart-items");
+    const totalPrice = document.getElementById("total-price");
+
+    items.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+        items.innerHTML = "<p>Your cart is empty!</p>";
+        totalPrice.textContent = 0;
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        items.innerHTML += `
+            <div class="cart-item">
+                <span>${item.name} × ${item.quantity}</span>
+                <span>₦${item.price * item.quantity}</span>
+                <button onclick="removeItem(${index})" style="background: #ff6b6b; color: white; border: none; padding: 5px 10px; cursor: pointer;">Remove</button>
+            </div>
+        `;
+    });
+
+    totalPrice.textContent = total;
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function placeOrder() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    
+    const name = prompt("Enter your name:");
+    if (!name) return;
+    
+    const address = prompt("Enter delivery address:");
+    if (!address) return;
+    
+    const phone = prompt("Enter your phone number:");
+    if (!phone) return;
+
+    localStorage.removeItem("cart");
+    cart = [];
+    renderCart();
+
+    alert(
+      "🎉 Order Successful!\n\n" +
+      "Thank you, " + name + "!\n" +
+      "Your food is on the way to:\n" + address +
+      "\n\nYou will be contacted at: " + phone
+    );
+    
+    window.location.href = "index.html";
+}
+
+// Display cart on page load
+renderCart();
+
+</script>
+
+</body>
+</html>

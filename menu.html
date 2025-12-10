@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grab'n'Go — Menu (merged)</title>
+
+  <!-- keep your stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Font + icons (menu4 used Font Awesome) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* small helpers to ensure nav integrates with existing style.css */
+    body { font-family: 'Poppins', sans-serif; }
+    /* Basic layout for nav (menu4 style) if your style.css doesn't provide it */
+    .menu-header nav {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 20px;
+      background:#fc3a3a;
+      box-shadow:0 2px 6px rgba(0,0,0,.04);
+      position:sticky;
+      top:0;
+      z-index:999;
+    }
+    .menu-header .logo-img { height:48px; object-fit:cover; border-radius:6px; }
+    .nav-links { position: fixed; right: -260px; top:0; height:100%; width:220px; background:#1a1a1a; box-shadow: -2px 0 8px rgba(0,0,0,.08); transition: right .25s ease; padding:20px; z-index:1000; }
+    .nav-links ul { list-style:none; padding:0; margin-top:16px; }
+    .nav-links li { margin:12px 0; }
+    .nav-links a { text-decoration:none; color:#fff; font-weight:600; }
+    .fa-bars { cursor:pointer; font-size:22px; color:#333; }
+    .fa-xmark { cursor:pointer; font-size:22px; color:#fff; }
+    /* ensure cart-count bubble */
+    #cart-count { background:#e53e3e; color:white; padding:2px 8px; border-radius:12px; font-size:12px; margin-left:6px; }
+    /* ensure menu title styling aligns */
+    .menu-title { text-align:center; margin:18px 0; font-size:28px; }
+    /* small responsive adjustments */
+    @media(min-width:800px) {
+      .nav-links { position:static; width:auto; height:auto; box-shadow:none; padding:0; display:flex; align-items:center; gap:20px; background:transparent; right:auto !important; }
+      .nav-links ul { display:flex; gap:18px; margin:0; padding:0; }
+      .nav-links a { color:#333; }
+      .nav-links li a i { color:#333; }
+      .fa-bars { display:none; }
+      .fa-xmark { display:none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== MENU4 NAVIGATION (merged) ===== -->
+  <section class="menu-header">
+    <nav>
+      <!-- logo (user chose menu4's logo) -->
+      <a href="index.html">
+      </a>
+
+      <!-- slide-in nav for mobile -->
+      <div class="nav-links" id="navLinks">
+        <i class="fa-solid fa-xmark" onclick="hidemenu()" title="Close menu"></i>
+
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="https://accounts.google.com/signin" target="_blank" rel="noreferrer">SIGN-IN</a></li>
+          <li><a href="menu.html">MENU</a></li>
+          <li>
+            <a href="cart.html">
+              <i class="fa-solid fa-cart-shopping"></i>
+              CART <span id="cart-count">0</span>
+            </a>
+          </li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+
+      <!-- mobile hamburger -->
+      <i class="fa-solid fa-bars" onclick="showmenu()" title="Open menu"></i>
+    </nav>
+
+    <h1 class="menu-title">Popular Meals Around Campus</h1>
+  </section>
+
+  <!-- ===== ORIGINAL meGnu CONTENT (filters + menu) - preserved ===== -->
+  <section id="menu">
+    <p class="menu-subtitle" style="text-align:center; margin-top:8px;">Choose meals and add to cart</p>
+
+    <!-- FILTER BUTTONS -->
+    <div class="filter-section" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px 10px;">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="local">Local Meals</button>
+      <button class="filter-btn" data-filter="fast">Fast Food</button>
+      <button class="filter-btn" data-filter="drinks">Drinks</button>
+      <button class="filter-btn" data-filter="health">Healthy Foods</button>
+    </div>
+
+    <!-- FOOD ITEMS -->
+    <div class="menu-items" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;padding:12px;">
+      <!--
+        IMPORTANT:
+        Your original meGnu.html contains many menu cards (base64 images).
+        I preserved the structure — each card must have this basic format:
+        <div class="menu-card <category>">
+          <img src="..." alt="...">
+          <h3>Item Name</h3>
+          <p>From: Vendor Name</p>
+          <span>₦1,200</span>
+          <button class="add-cart">Add to Cart</button>
+        </div>
+
+        The script below will detect every .menu-card and its .add-cart button,
+        read the name/vendor/price/img and add to cart using the improved cart system.
+      -->
+
+      <!-- menu-card 1: Jollof Rice & Chicken -->
+      <div class="menu-card local" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGb7ic70-Ri4amPTy4RByWZ1sQY8K17DlEuQ&s." alt="Jollof Rice & Chicken" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Jollof Rice & Chicken</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Mama Nkechi Kitchen</p>
+        <span style="font-weight:700;">₦1,200</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 2: Egusi Soup and pounded yam -->
+      <div class="menu-card local" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFTgOQi9IggI47jKJsQTa2LdPfQGp0_jhVQQ&s" alt="Fried Rice & Beef" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Egusi Soup and Pounded Yam</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Chef's Table</p>
+        <span style="font-weight:700;">₦1,500</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 3: Burger & Fries -->
+      <div class="menu-card fast" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" alt="Burger & Fries" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Burger & Fries</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Fast Bites</p>
+        <span style="font-weight:700;">₦950</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 4: Chicken Shawarma -->
+      <div class="menu-card fast" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://static.toiimg.com/photo/64696930.cms" alt="Chicken Shawarma" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Chicken Shawarma</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Middle East Kitchen</p>
+        <span style="font-weight:700;">₦1,800</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 5: Fresh Salad Bowl -->
+      <div class="menu-card health" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjY1COzcGmA0fh5wzi8TjMtT2YxYqOlIOnNA&s" alt="Fresh Salad Bowl" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Fresh Salad Bowl</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Healthy Eats</p>
+        <span style="font-weight:700;">₦1,100</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 5: Vegg Stir Fry -->
+      <div class="menu-card health" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs4u-koMR5UO-J1xD57-7QFiFVpsg0gOyuxg&s" alt="Fresh Salad Bowl" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Veg Stir Fry</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Healthy Eats</p>
+        <span style="font-weight:700;">₦1,600</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 6: Smoothie & Juice -->
+      <div class="menu-card drinks" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNed22WnGHAuum7UwXcXmjygQkm3ewJW3E3w&s" alt="Smoothie & Juice" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Smoothie & Juice</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Fresh Juice Bar</p>
+        <span style="font-weight:700;">₦650</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- menu-card 7: Milkshake -->
+      <div class="menu-card drinks" style="width:260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.05); padding:12px; background:white;">
+        <img src="https://cookilicious.com/wp-content/uploads/2025/01/Brownie-Milkshake-Recipe-20-scaled.jpg" alt="Smoothie & Juice" style="width:100%; height:140px; object-fit:cover; border-radius:6px;">
+        <h3 style="margin:8px 0 4px;">Milkshake</h3>
+        <p style="margin:0 0 6px; color:#666;">From: Waffles and Cream</p>
+        <span style="font-weight:700;">₦650</span>
+        <div style="margin-top:8px;">
+          <button class="add-cart" style="padding:8px 12px; border-radius:6px; border:none; background:#fa3838; color:white; cursor:pointer">Add to Cart</button>
+        </div>
+      </div>
+
+    </div> <!-- /.menu-items -->
+  </section>
+
+  <!-- ===== SCRIPTS: nav show/hide + filters + improved cart system ===== -->
+  <script>
+    /* ===== NAV show/hide (menu4 functions) ===== */
+    const navLinks = document.getElementById("navLinks");
+    function showmenu() { navLinks.style.right = "0"; }
+    function hidemenu() { navLinks.style.right = "-260px"; }
+
+    /* ===== FILTERS (from meGnu) ===== */
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".filter-btn");
+      const cards = document.querySelectorAll(".menu-card");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          // active state
+          buttons.forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          const filter = button.dataset.filter;
+
+          cards.forEach(card => {
+            if (filter === "all" || card.classList.contains(filter)) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // After setting filters, initialize cart bindings
+      initCartBindings();
+      updateCartUI();
+    });
+
+    /* ===== Improved cart system (menu4 style) ===== */
+    // cart structure: [ { name, vendor, price, img, quantity }, ... ]
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Normalize price text like "₦1,200" to number 1200
+    function parsePrice(priceText) {
+      if (!priceText) return 0;
+      // remove currency symbols, commas, spaces
+      const cleaned = priceText.replace(/[^0-9.-]+/g, "");
+      const n = parseFloat(cleaned);
+      return isNaN(n) ? 0 : n;
+    }
+
+    // Add item (or increment quantity) — using object fields
+    function addToCartItem(item) {
+      // item: { name, vendor, price (number), img }
+      const existing = cart.find(x => x.name === item.name && x.vendor === item.vendor);
+      if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartUI();
+      // small feedback
+      flashAddToCartFeedback(item.name);
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((s, it) => s + (it.quantity || 0), 0);
+      const el = document.getElementById("cart-count");
+      if (el) el.innerText = count;
+      // also persist (already persisted in add)
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function flashAddToCartFeedback(name) {
+      // minimal visual feedback (non-blocking)
+      console.log("Added to cart:", name);
+      // optionally you can show a toast/alert; we'll do a subtle quick flash on the button(s)
+    }
+
+    /* ===== Attach to existing .add-cart buttons dynamically ===== */
+    function initCartBindings() {
+      // For every .menu-card, ensure structure and attach click handler
+      const cards = document.querySelectorAll(".menu-card");
+
+      cards.forEach(card => {
+        // find the add button
+        const addBtn = card.querySelector(".add-cart, button.add-cart");
+        if (!addBtn) return;
+
+        // when clicked, extract info from the card
+        addBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          // Extract name: first h3 or element with the name
+          const nameEl = card.querySelector("h3") || card.querySelector(".name") || card.querySelector("h2");
+          const vendorEl = card.querySelector("p") || card.querySelector(".vendor");
+          const priceEl = card.querySelector("span") || card.querySelector(".price");
+          const imgEl = card.querySelector("img");
+
+          const name = nameEl ? nameEl.innerText.trim() : "Unknown Item";
+          // vendor text often like "From: Mama Nkechi Kitchen" — keep full text
+          const vendor = vendorEl ? vendorEl.innerText.replace(/^From:\s*/i, "").trim() : "Unknown Vendor";
+          const priceText = priceEl ? priceEl.innerText.trim() : "₦0";
+          const price = parsePrice(priceText);
+          const img = imgEl ? imgEl.src : "";
+
+          addToCartItem({ name, vendor, price, img });
+        });
+      });
+    }
+
+    /* ===== Optional: expose clearCart / viewCart helpers ===== */
+    function clearCart() {
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartUI();
+    }
+    // If you want to view cart in console
+    function viewCart() {
+      console.log("CART:", cart);
+    }
+
+    // keep cart state fresh if user opens page with different tab/window
+    window.addEventListener("storage", (e) => {
+      if (e.key === "cart") {
+        cart = JSON.parse(e.newValue || "[]");
+        updateCartUI();
+      }
+    });
+  </script>
+
+  <!-- End body -->
+</body>
+</html>
